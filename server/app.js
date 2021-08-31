@@ -2,10 +2,22 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+const publicRoutes = require('./routes/publicRoutes')
+
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+app.use('/public', publicRoutes)
+
+app.use((error, req, res, next) => {
+  console.log(error);
+  const status = error.statusCode || 500;
+  const message = error.message;
+  const data = error.data;
+  res.status(status).json({ message: message, data: data });
+});
 
 mongoose
   .connect(
