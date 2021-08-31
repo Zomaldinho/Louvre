@@ -6,9 +6,11 @@ const User = require('../models/User');
 exports.signup = async (req, res, next) => {
   const errors = validationResult(req);
   try {
+    // handle validation error
     if (!errors.isEmpty()) {
       handleValidationErrors(errors);
     }
+
     const { username, password, role, mobileNumber } = req.body;
     let hashedPass = await bcrypt.hash(password, 12);
     let user = new User({
@@ -37,25 +39,33 @@ exports.signup = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   const errors = validationResult(req);
   try {
+    // handle validation error
     if (!errors.isEmpty()) {
       handleValidationErrors(errors);
     }
+
     const { username, password } = req.body;
     let loadedUser = await User.findOne({ username });
+
+    // handle user not exist error
     if (!loadedUser) {
       const error = new Error('A user with this username could not be found.');
       error.statusCode = 401;
       throw error;
     }
+
     let isCorrectPassword = await bcrypt.compare(
       String(password),
       loadedUser.password
     );
+
+    // handle wrong password error
     if (!isCorrectPassword) {
       const error = new Error('Wrong password!');
       error.statusCode = 401;
       throw error;
     }
+    
     const token = jwt.sign(
       {
         role: loadedUser.role,
