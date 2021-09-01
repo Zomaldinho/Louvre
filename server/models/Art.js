@@ -1,12 +1,6 @@
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim:true,
-    unique: true
-  },
   artist: {
     type: String,
     required: true,
@@ -15,7 +9,7 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  image: {
+  picture: {
     type: String,
     required: true
   }
