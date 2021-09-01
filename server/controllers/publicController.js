@@ -2,13 +2,14 @@ const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const validationHelper = require('../helpers/validations')
 
 exports.signup = async (req, res, next) => {
   const errors = validationResult(req);
   try {
     // handle validation error
     if (!errors.isEmpty()) {
-      handleValidationErrors(errors);
+      validationHelper.handleValidationErrors(errors);
     }
 
     const { username, password, role, mobileNumber } = req.body;
@@ -41,7 +42,7 @@ exports.login = async (req, res, next) => {
   try {
     // handle validation error
     if (!errors.isEmpty()) {
-      handleValidationErrors(errors);
+      validationHelper.handleValidationErrors(errors);
     }
 
     const { username, password } = req.body;
@@ -82,11 +83,4 @@ exports.login = async (req, res, next) => {
     }
     next(error);
   }
-};
-
-const handleValidationErrors = (errors) => {
-  const error = new Error('Validation failed.');
-  error.statusCode = 422;
-  error.data = errors.array();
-  throw error;
 };
