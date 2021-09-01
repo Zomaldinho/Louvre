@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const publicRoutes = require('./routes/publicRoutes')
+const privateRoutes = require('./routes/privateRoutes')
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/public', publicRoutes)
+app.use('/private', privateRoutes)
 
 app.use((error, req, res, next) => {
   console.log(error);
