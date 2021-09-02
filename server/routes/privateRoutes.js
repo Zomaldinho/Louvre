@@ -29,5 +29,6 @@ router.put(
   validationHelper.createArt(),
   privateController.editArt
 );
+router.delete('/deleteArt/:id', isAuth, privateController.editArt)
 
 module.exports = router;
