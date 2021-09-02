@@ -22,5 +22,12 @@ router.post(
   validationHelper.createArt(),
   privateController.createArt
 );
+router.put(
+  '/editArt/:id',
+  isAuth,
+  upload,
+  validationHelper.createArt(),
+  privateController.editArt
+);
 
 module.exports = router;
