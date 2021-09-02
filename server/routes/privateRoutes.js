@@ -15,6 +15,8 @@ let upload = multer({
 }).single('image');
 
 router.post('/getArts', isAuth, privateController.getArts);
+router.delete('/deleteArt/:id', isAuth, privateController.deleteArt)
+router.get('/getUsers', isAuth, privateController.getUsers)
 router.post(
   '/createArt',
   isAuth,
@@ -29,6 +31,5 @@ router.put(
   validationHelper.createArt(),
   privateController.editArt
 );
-router.delete('/deleteArt/:id', isAuth, privateController.editArt)
 
 module.exports = router;
