@@ -1,7 +1,8 @@
 const { validationResult } = require('express-validator');
 
 const Art = require('../models/Art');
-const validationHelper = require('../helpers/validations')
+const validationHelper = require('../helpers/validations');
+const authHelper = require('../helpers/auth');
 
 exports.getArts = async (req, res, next) => {
   const currentPage = req.body.page || 1;
@@ -47,6 +48,29 @@ exports.createArt = async (req, res, next) => {
       message: 'Art created successfully!',
       art: savedArt,
     });
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
+
+exports.editArt = async (req, res, next) => {
+  try {
+    // handle validation error
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      validationHelper.handleValidationErrors(errors);
+    }
+    authHelper.checkUserIsAdmin(req.userRole);
+    let { artist, description } = req.body;
+    let { id } = req.params;
+    let editedArt = await Art.findByIdAndUpdate(
+      id, { $set: { artist, description } },
+      { new: true }
+    );
+    res.status(200).json({ message: 'Art updated!', art: editedArt });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
