@@ -14,7 +14,7 @@ let upload = multer({
   fileFilter: uploadHelper.fileFilter,
 }).single('image');
 
-router.post('/getArts', isAuth, privateController.getArts);
+router.get('/getArts', isAuth, privateController.getArts);
 router.delete('/deleteArt/:id', isAuth, privateController.deleteArt)
 router.get('/getUsers', isAuth, privateController.getUsers)
 router.post(

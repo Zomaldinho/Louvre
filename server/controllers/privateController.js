@@ -6,8 +6,8 @@ const validationHelper = require('../helpers/validations');
 const authHelper = require('../helpers/auth');
 
 exports.getArts = async (req, res, next) => {
-  const currentPage = req.body.page || 1;
-  const perPage = req.body.elements || 10;
+  const currentPage = +req.query.page || 1;
+  const perPage = +req.query.elements || 10;
   try {
     let arts = await Art.find()
       .skip((currentPage - 1) * perPage)
