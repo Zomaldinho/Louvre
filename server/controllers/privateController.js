@@ -31,11 +31,7 @@ exports.createArt = async (req, res, next) => {
     if (!errors.isEmpty()) {
       validationHelper.handleValidationErrors(errors);
     }
-    if (req.userRole !== 'Admin') {
-      const error = new Error('Only Admin users have access to this endpoint');
-      error.statusCode = 401;
-      throw error;
-    }
+    authHelper.checkUserIsAdmin(req.userRole);
     let { artist, description } = req.body;
     let { path } = req.file;
     let art = new Art({
