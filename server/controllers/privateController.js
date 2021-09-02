@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 
 const Art = require('../models/Art');
+const User = require('../models/User');
 const validationHelper = require('../helpers/validations');
 const authHelper = require('../helpers/auth');
 
@@ -77,6 +78,7 @@ exports.editArt = async (req, res, next) => {
 
 exports.deleteArt = async (req, res, next) => {
   try {
+    authHelper.checkUserIsAdmin(req.userRole);
     let { id } = req.params
     await Art.findByIdAndRemove(id)
     res.status(200).json({ message: 'Art is deleted' });
@@ -87,4 +89,24 @@ exports.deleteArt = async (req, res, next) => {
     next(error);
   }
 
+}
+
+exports.getUsers = async (req, res, next) => {
+  try {
+    authHelper.checkUserIsAdmin(req.userRole);
+    const currentPage = +req.query.page || 1;
+    const perPage = +req.query.elements || 10;
+    let users = await User.find()
+      .skip((currentPage - 1) * perPage)
+      .limit(perPage);
+    res.status(200).json({
+      message: 'Fetched users successfully.',
+      users,
+    });
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
 }
