@@ -74,3 +74,17 @@ exports.editArt = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.deleteArt = async (req, res, next) => {
+  try {
+    let { id } = req.params
+    await Art.findByIdAndRemove(id)
+    res.status(200).json({ message: 'Art is deleted' });
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+
+}
