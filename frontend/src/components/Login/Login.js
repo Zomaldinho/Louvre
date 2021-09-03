@@ -6,7 +6,7 @@ const Login = () => {
   let passwordPlaceHolder = 'input your password here';
   return (
     <div className="main-login d-flex justify-content-md-center align-items-center vh-100 ">
-      <div className="card" style={{ width: '40%' }}>
+      <div className="card login-main" >
         <div className="card-header text-center">Login</div>
         <form className="p-4">
           <div className="mb-3">
