@@ -5,11 +5,12 @@ import Signup from './components/Signup/Signup';
 import ArtCard from './components/ArtCard/ArtCard';
 import ArtGrid from './components/ArtGrid/ArtGrid';
 import UsersTable from './components/UsersTable/UsersTable';
+import ArtsTable from './components/ArtsTable/ArtsTable';
 
 function App() {
   return (
     <div className="App container bg-light">
-      <UsersTable />
+      <ArtsTable />
     </div>
   );
 }
