@@ -8,25 +8,28 @@ const UsersTable = () => {
     { id: 'qwee4', username: 'asdads4', phoneNumber: '012213' },
   ];
   return (
-    <div className="p-2 bg-white">
-      <table className="table">
-        <thead className="table-light">
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">User Name</th>
-            <th scope="col">Phone Number</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, i) => (
+    <div>
+      <h2 className="mb-3 pt-3 text-start">Users</h2>
+      <div className="p-2 bg-white">
+        <table className="table">
+          <thead className="table-light">
             <tr>
-              <th scope="row">{user.id}</th>
-              <td>{user.username}</td>
-              <td>{user.phoneNumber}</td>
+              <th scope="col">ID</th>
+              <th scope="col">User Name</th>
+              <th scope="col">Phone Number</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map((user, i) => (
+              <tr>
+                <th scope="row">{user.id}</th>
+                <td>{user.username}</td>
+                <td>{user.phoneNumber}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
