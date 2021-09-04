@@ -8,7 +8,7 @@ const AdminArtsPage = () => {
     <div>
       <Navbar />
       <div className="App container bg-light">
-        <Taps />
+        <Taps arts={true} />
         <ArtsTable />
       </div>
     </div>

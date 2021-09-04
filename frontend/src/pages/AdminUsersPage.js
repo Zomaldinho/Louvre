@@ -8,7 +8,7 @@ const AdminUsersPage = () => {
     <div>
       <Navbar />
       <div className="App container bg-light">
-        <Taps />
+        <Taps users={true} />
         <UsersTable />
       </div>
     </div>
