@@ -10,8 +10,12 @@ import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
-    <div className="App container bg-light">
+    <div>
       <Navbar />
+    <div className="App container bg-light">
+      <ArtsTable />
+    </div>
+
     </div>
   );
 }
