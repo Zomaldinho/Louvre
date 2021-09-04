@@ -6,11 +6,12 @@ import ArtCard from './components/ArtCard/ArtCard';
 import ArtGrid from './components/ArtGrid/ArtGrid';
 import UsersTable from './components/UsersTable/UsersTable';
 import ArtsTable from './components/ArtsTable/ArtsTable';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
     <div className="App container bg-light">
-      <ArtsTable />
+      <Navbar />
     </div>
   );
 }
