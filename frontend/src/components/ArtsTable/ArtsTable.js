@@ -11,7 +11,7 @@ const ArtsTable = () => {
   ];
   return (
     <div>
-      <h2 className="m-3 text-start">Art pieces</h2>
+      <h2 className="mb-3 pt-3 text-start">Art pieces</h2>
       <div className="p-2 bg-white">
       <table className="table">
         <thead className="table-light">
