@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom'
 
 const Login = () => {
   let usernamePlaceHolder = 'input your username here';
   let passwordPlaceHolder = 'input your password here';
+
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value)
+  }
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value)
+  }
+
   return (
     <div className="main-login d-flex justify-content-md-center align-items-center vh-100 ">
       <div className="card login-main" >
@@ -14,6 +26,7 @@ const Login = () => {
             <label className="form-label">Username</label>
             <input
               placeholder={usernamePlaceHolder}
+              onChange={handleUsernameChange}
               type="text"
               className="form-control"
             />
@@ -24,6 +37,7 @@ const Login = () => {
             </label>
             <input
               placeholder={passwordPlaceHolder}
+              onChange={handlePasswordChange}
               type="password"
               className="form-control"
             />
