@@ -1,5 +1,6 @@
 import React from "react";
 import img from '../../assets/IconBackground-1.png'
+import Paginator from "../Paginator/Paginator";
 import './ArtsTable.css'
 
 const ArtsTable = () => {
@@ -36,6 +37,7 @@ const ArtsTable = () => {
         </tbody>
       </table>
     </div>
+      <Paginator />
     </div>
   )
 }
