@@ -1,5 +1,6 @@
 import React from 'react';
 import './Login.css';
+import { Link } from 'react-router-dom'
 
 const Login = () => {
   let usernamePlaceHolder = 'input your username here';
@@ -32,7 +33,7 @@ const Login = () => {
               Login
             </button>
           </div>
-          <p className="mt-2">or <a href="#">Sign up</a> if you are a new Guest</p>
+          <p className="mt-2">or <Link to="/signup">Sign up</Link> if you are a new Guest</p>
         </form>
       </div>
     </div>
