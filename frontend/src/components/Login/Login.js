@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { errorHandler } from '../../helpers/Popups';
 
 const Login = () => {
   let usernamePlaceHolder = 'input your username here';
   let passwordPlaceHolder = 'input your password here';
+  let history = useHistory()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -15,6 +17,26 @@ const Login = () => {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value)
+  }
+
+  const handleLoginButtonClick = async (event) => {
+    event.preventDefault();
+    let res = await fetch('http://localhost:5000/public/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    });
+    if (res.status != 200)
+      return errorHandler('Username and/or password are not correct');
+    res = await res.json()
+    localStorage.setItem('token', res.token);
+    localStorage.setItem('userId', res.userId);
+    localStorage.setItem('role', res.role);
+    if(res.role == 'Admin'){
+      history.replace('/admin/arts')
+    } else if (res.role == 'Guest'){
+      history.replace('/gallery')
+    }
   }
 
   return (
@@ -43,7 +65,7 @@ const Login = () => {
             />
           </div>
           <div>
-            <button type="submit" className="mx-auto btn btn-primary">
+            <button onClick={handleLoginButtonClick} type="submit" className="mx-auto btn btn-primary">
               Login
             </button>
           </div>
