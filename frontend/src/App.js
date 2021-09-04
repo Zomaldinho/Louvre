@@ -40,20 +40,27 @@ function App() {
             <Redirect to="/login" />
           )}
         </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/signup">
-          <Signup />
-        </Route>
-        <Route path="/gallery">
+        {!token && (
+          <Route path="/login">
+            <Login />
+          </Route>
+        )}
+        {!token && (
+          <Route path="/signup">
+            <Signup />
+          </Route>
+        )}
+        {token && role == 'Guest' && <Route path="/gallery">
           <GuestGallaryArtsPage />
-        </Route>
-        <Route path="/admin/arts">
+        </Route>}
+        {token && role == 'Admin' && <Route path="/admin/arts">
           <AdminArtsPage />
-        </Route>
-        <Route path="/admin/users">
+        </Route>}
+        {token && role == 'Admin' && <Route path="/admin/users">
           <AdminUsersPage />
+        </Route>}
+        <Route path="*">
+          <Redirect to="/" />
         </Route>
       </Switch>
     </div>
