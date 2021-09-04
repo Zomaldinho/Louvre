@@ -76,7 +76,13 @@ exports.login = async (req, res, next) => {
       'ExtremeSolution',
       { expiresIn: '1d' }
     );
-    res.status(200).json({ token: token, userId: loadedUser._id.toString() });
+    res
+      .status(200)
+      .json({
+        token: token,
+        userId: loadedUser._id.toString(),
+        role: loadedUser.role,
+      });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
