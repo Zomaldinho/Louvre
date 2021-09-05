@@ -7,3 +7,13 @@ export const errorHandler = (message) => {
     text: message,
   })
 }
+
+export const signUpSuccessfulMessage = () => {
+  return Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Successfully registered',
+    showConfirmButton: false,
+    timer: 2000
+  })
+}
