@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  backend:
+    build: ./server
+    volumes: 
+      - ./server/images:/app/images
+    ports: '5000:5000'
+    env_file: 
+      - ./env.sh
+  frontend:
+    build: ./frontend
+    ports: '3000:3000'
