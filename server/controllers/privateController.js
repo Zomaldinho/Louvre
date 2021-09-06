@@ -7,7 +7,7 @@ const authHelper = require('../helpers/auth');
 
 exports.getArts = async (req, res, next) => {
   const currentPage = +req.query.page || 1;
-  const perPage = +req.query.elements || 10;
+  const perPage = +req.query.elements || 12;
   try {
     let arts = await Art.find()
       .skip((currentPage - 1) * perPage)
