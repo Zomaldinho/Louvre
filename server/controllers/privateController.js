@@ -103,7 +103,7 @@ exports.getUsers = async (req, res, next) => {
     let users = await User.find()
       .skip((currentPage - 1) * perPage)
       .limit(perPage);
-    let count = await Art.count()
+    let count = await User.count()
 
     res.status(200).json({
       message: 'Fetched users successfully.',
