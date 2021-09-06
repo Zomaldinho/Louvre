@@ -7,7 +7,11 @@ const ArtGrid = () => {
   const [count, setCount] = useState([])
 
   useEffect(async () => {
-    let res = await fetch('http://localhost:5000/private/getArts?page=1', {
+    await updateArts(1)
+  }, []);
+
+  const updateArts = async (page) => {
+    let res = await fetch(`http://localhost:5000/private/getArts?page=${page}`, {
       method: 'GET',
       headers: {
         Authorization: 'JWT ' + localStorage.getItem('token'),
@@ -16,7 +20,11 @@ const ArtGrid = () => {
     res = await res.json()
     setArts(res.arts)
     setCount(res.count)
-  }, []);
+  }
+
+  const handlePaginatorChange = async (newPage) => {
+    await updateArts(newPage)
+  }
 
   return (
     <div>
@@ -28,7 +36,7 @@ const ArtGrid = () => {
           ))}
       </div>
         <div className='d-flex justify-content-center m-3'>
-          {!!arts.length && <Paginator count={count}/>}
+          {!!arts.length && <Paginator change={handlePaginatorChange} count={count}/>}
         </div>
     </div>
   );
