@@ -39,3 +39,13 @@ export const deletionSuccessfulMessage = () => {
     timer: 2000
   })
 }
+
+export const artCreationMessage = () => {
+  return Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'New Art is successfully created',
+    showConfirmButton: false,
+    timer: 2000
+  })
+}
