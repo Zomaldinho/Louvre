@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../store/auth-context";
+import React, { useContext } from 'react';
+import { AuthContext } from '../../store/auth-context';
 
 const Navbar = () => {
-  let handleLogout = useContext(AuthContext).handleLogout
+  let handleLogout = useContext(AuthContext).handleLogout;
 
   return (
     <div className="border-bottom d-flex justify-content-between bg-white">
@@ -11,9 +11,14 @@ const Navbar = () => {
         <h5 className="m-0">{localStorage.getItem('username')}</h5>
         <p className="m-0">{localStorage.getItem('role')}</p>
       </div>
-        <button onClick={handleLogout} className="me-5 btn btn-outline-danger">logout</button>
+      <button
+        onClick={handleLogout}
+        className="m-2 me-5 btn btn-outline-danger"
+      >
+        logout
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
