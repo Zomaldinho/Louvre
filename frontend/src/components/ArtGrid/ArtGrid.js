@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ArtCard from '../ArtCard/ArtCard';
+import Paginator from "../Paginator/Paginator";
 
 const ArtGrid = () => {
   const [arts, setArts] = useState([])
+  const [count, setCount] = useState([])
 
   useEffect(async () => {
     let res = await fetch('http://localhost:5000/private/getArts?page=1', {
@@ -13,6 +15,7 @@ const ArtGrid = () => {
     });
     res = await res.json()
     setArts(res.arts)
+    setCount(res.count)
   }, []);
 
   return (
@@ -24,6 +27,9 @@ const ArtGrid = () => {
             <ArtCard art={art} className="col" />
           ))}
       </div>
+        <div className='d-flex justify-content-center m-3'>
+          {!!arts.length && <Paginator count={count}/>}
+        </div>
     </div>
   );
 };
