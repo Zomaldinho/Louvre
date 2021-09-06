@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Lightbox from 'react-image-lightbox';
+import './ArtGrid.css'
 
 const ArtCard = (props) => {
   const [isClicked, setIsClicked] = useState(false);
@@ -7,7 +9,7 @@ const ArtCard = (props) => {
     <div>
       <div
         onClick={() => setIsClicked(true)}
-        className="card m-3 p-0"
+        className="card m-3 p-0 special"
         style={{ borderRadius: '25px' }}
       >
         <img
@@ -21,6 +23,14 @@ const ArtCard = (props) => {
           </p>
         </div>
       </div>
+      {isClicked && (
+        <Lightbox
+          mainSrc={baseURL + props.art.picture}
+          onCloseRequest={() => setIsClicked(false)}
+          imageCaption={props.art.description}
+          imageTitle={'By: ' + props.art.artist}
+        />
+      )}
     </div>
   );
 };
