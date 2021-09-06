@@ -11,31 +11,36 @@ import { verify } from 'jsonwebtoken';
 import { AuthContext } from './store/auth-context';
 
 function App() {
-  const [token, setToken] = useState(null);
   const [role, setRole] = useState('');
   const [loading, setLoading] = useState(true);
-  const history = useHistory()
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const history = useHistory();
+
   useEffect(() => {
-    let token = localStorage.getItem('token');
-    if (token) {
-      setToken(token);
-      let decodedToken = verify(token, 'ExtremeSolution');
+    let storageToken = localStorage.getItem('token');
+    if (storageToken) {
+      setIsLoggedIn(true);
+      let decodedToken = verify(storageToken, 'ExtremeSolution');
       setRole(decodedToken.role);
       console.log({ role });
     }
     setLoading(false);
   }, []);
 
+  const handleLogin = () => {
+    setRole(localStorage.getItem('role'));
+    setIsLoggedIn(true);
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('role');
     localStorage.removeItem('username');
-    setRole(null)
-    setToken('')
-    history.replace('/login')
-  }
+    setRole(null);
+    setIsLoggedIn(false);
+    history.replace('/login');
+  };
 
   if (loading) return <div>Loading...</div>;
 
@@ -43,7 +48,7 @@ function App() {
     <AuthContext.Provider value={{ handleLogout }}>
       <Switch>
         <Route path="/" exact>
-          {token ? (
+          {isLoggedIn ? (
             role == 'Admin' ? (
               <Redirect to="/admin/arts" />
             ) : (
@@ -53,27 +58,31 @@ function App() {
             <Redirect to="/login" />
           )}
         </Route>
-        {!token && (
+        {!isLoggedIn && (
           <Route path="/login">
-            <Login />
+            <Login onLogin={handleLogin} />
           </Route>
         )}
-        {!token && (
+        {!isLoggedIn && (
           <Route path="/signup">
             <Signup />
           </Route>
         )}
-         
+        {isLoggedIn && role === 'Guest' && (
           <Route path="/gallery">
             <GuestGallaryArtsPage />
           </Route>
-        
+        )}
+        {isLoggedIn && role === 'Admin' && (
           <Route path="/admin/arts">
             <AdminArtsPage />
           </Route>
+        )}
+        {isLoggedIn && role === 'Admin' && (
           <Route path="/admin/users">
             <AdminUsersPage />
           </Route>
+        )}
         <Route path="*">
           <Redirect to="/" />
         </Route>
