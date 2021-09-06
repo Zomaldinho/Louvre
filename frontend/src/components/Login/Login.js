@@ -3,7 +3,7 @@ import './Login.css';
 import { Link, useHistory } from 'react-router-dom'
 import { errorHandler } from '../../helpers/Popups';
 
-const Login = () => {
+const Login = (props) => {
   let usernamePlaceHolder = 'input your username here';
   let passwordPlaceHolder = 'input your password here';
   let history = useHistory()
@@ -33,6 +33,7 @@ const Login = () => {
     localStorage.setItem('userId', res.userId);
     localStorage.setItem('role', res.role);
     localStorage.setItem('username', res.username);
+    props.onLogin()
     if(res.role == 'Admin'){
       history.replace('/admin/arts')
     } else if (res.role == 'Guest'){
