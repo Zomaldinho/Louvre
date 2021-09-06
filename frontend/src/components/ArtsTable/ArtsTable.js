@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import {
+  deleteConfirmation,
+  deletionSuccessfulMessage,
+  errorHandler,
+} from '../../helpers/Popups';
 import Paginator from '../Paginator/Paginator';
 import './ArtsTable.css';
 
@@ -24,6 +29,27 @@ const ArtsTable = () => {
     res = await res.json();
     setArts(res.arts);
     setCount(res.count);
+  };
+
+  const handleDeleteButtonClick = async (art) => {
+    let result = await deleteConfirmation();
+    if (result.isConfirmed) {
+      let res = await fetch(
+        `http://localhost:5000/private/deleteArt/${art._id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: 'JWT ' + localStorage.getItem('token'),
+          },
+        }
+      );
+      if (res.status == 200) {
+        deletionSuccessfulMessage();
+        await updateArts(1);
+      } else {
+        errorHandler('Something went wrong. Please try again!');
+      }
+    }
   };
 
   const handlePaginatorChange = async (newPage) => {
@@ -57,7 +83,12 @@ const ArtsTable = () => {
                 <td>{art.artist}</td>
                 <td>{art.description}</td>
                 <td>
-                  <button className="btn btn-danger">Delete</button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleDeleteButtonClick(art)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
