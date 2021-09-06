@@ -9,6 +9,7 @@ import AdminUsersPage from './pages/AdminUsersPage';
 import { useEffect, useState } from 'react';
 import { verify } from 'jsonwebtoken';
 import { AuthContext } from './store/auth-context';
+import NewArtPage from './pages/NewArtPage';
 
 function App() {
   const [role, setRole] = useState('');
@@ -81,6 +82,11 @@ function App() {
         {isLoggedIn && role === 'Admin' && (
           <Route path="/admin/users">
             <AdminUsersPage />
+          </Route>
+        )}
+        {isLoggedIn && role === 'Admin' && (
+          <Route path="/admin/newArt">
+            <NewArtPage />
           </Route>
         )}
         <Route path="*">
