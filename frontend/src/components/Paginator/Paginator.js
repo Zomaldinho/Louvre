@@ -9,6 +9,7 @@ const Paginator = (props) => {
 
   useEffect(() => {
     setPagesNumber(Math.ceil(props.count/12))
+    setCurrentPageNumber(1)
   }, [props.count]);
 
   const handlePageNumberChange = (newPage) => {
