@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const UsersTable = () => {
-  let users = [
-    { id: 'qwee', username: 'asdads', phoneNumber: '012213' },
-    { id: 'qwee2', username: 'asdads2', phoneNumber: '012213' },
-    { id: 'qwee3', username: 'asdads3', phoneNumber: '012213' },
-    { id: 'qwee4', username: 'asdads4', phoneNumber: '012213' },
-  ];
+  const [users, setUsers] = useState([]);
+  const [count, setCount] = useState([]);
+
+  useEffect(async () => {
+    await updateUsers(1);
+  }, []);
+
+  const updateUsers = async (page) => {
+    let res = await fetch(
+      `http://localhost:5000/private/getUsers?page=${page}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'JWT ' + localStorage.getItem('token'),
+        },
+      }
+    );
+    res = await res.json();
+    setUsers(res.users);
+    setCount(res.count);
+  };
+
   return (
     <div>
       <h2 className="mb-3 pt-3 text-start">Users</h2>
@@ -14,17 +30,19 @@ const UsersTable = () => {
         <table className="table">
           <thead className="table-light">
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col">User Name</th>
+              <th scope="col">ID (in DB)</th>
+              <th scope="col">Username</th>
               <th scope="col">Phone Number</th>
+              <th scope="col">Role</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user, i) => (
               <tr>
-                <th scope="row">{user.id}</th>
+                <th>{user._id}</th>
                 <td>{user.username}</td>
-                <td>{user.phoneNumber}</td>
+                <td>{user.mobileNumber}</td>
+                <td>{user.role}</td>
               </tr>
             ))}
           </tbody>
