@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path')
 const mongoose = require('mongoose');
 const cors = require('cors');
 
@@ -12,6 +13,7 @@ app.use(cors());
 
 app.use('/public', publicRoutes)
 app.use('/private', privateRoutes)
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use((error, req, res, next) => {
   console.log(error);
