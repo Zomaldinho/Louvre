@@ -1,20 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import img from '../../assets/IconBackground-1.png'
 import Paginator from "../Paginator/Paginator";
 import './ArtsTable.css'
 
 const ArtsTable = () => {
-  let arts = [
-    { image: img, name: 'asdads', artist: '012213', description: 'description'},
-    { image: img, name: 'asdads2', artist: '012213', description: 'description'},
-    { image: img, name: 'asdads3', artist: '012213', description: 'description'},
-    { image: img, name: 'asdads4', artist: '012213', description: 'description'},
-  ];
+  const [arts, setArts] = useState([])
+  const [count, setCount] = useState([])
+  let baseURL = 'http://localhost:5000/'
+
+  useEffect(async () => {
+    await updateArts(1)
+  }, []);
+
+  const updateArts = async (page) => {
+    let res = await fetch(`http://localhost:5000/private/getArts?page=${page}`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'JWT ' + localStorage.getItem('token'),
+      },
+    });
+    res = await res.json()
+    setArts(res.arts)
+    setCount(res.count)
+  }
+
+  const handlePaginatorChange = async (newPage) => {
+    await updateArts(newPage)
+  }
+
   return (
     <div>
       <h2 className="mb-3 pt-3 text-start">Art pieces</h2>
       <div className="p-2 bg-white">
-      <table className="table">
+      <table className="table align-middle">
         <thead className="table-light">
           <tr>
             <th scope="col">Item</th>
@@ -27,8 +45,8 @@ const ArtsTable = () => {
         <tbody>
           {arts.map((art, i) => (
             <tr>
-              <td><img className="img-thumbnail item-img" src={art.image} /></td>
-              <td>{art.name}</td>
+              <td><img className="img-thumbnail item-img" src={baseURL + art.picture} /></td>
+              <td>Art Piece</td>
               <td>{art.artist}</td>
               <td>{art.description}</td>
               <td><button className="btn btn-danger">Delete</button></td>
@@ -37,7 +55,7 @@ const ArtsTable = () => {
         </tbody>
       </table>
     </div>
-      <Paginator />
+      {/* <Paginator /> */}
     </div>
   )
 }
