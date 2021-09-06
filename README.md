@@ -5,7 +5,7 @@ This is a MERN app which uses React and Bootstrap for the front end and Node JS 
 
 ## Live Version
 
-you can see a live version of the app deployed on an AWS EC2 Ubuntu instance by  clicking <a href='http://ec2-18-193-157-74.eu-central-1.compute.amazonaws.com/'>here</a> 
+you can see a live version of the app deployed on an AWS EC2 Ubuntu instance by  clicking <a target='_blank' href='http://ec2-18-193-157-74.eu-central-1.compute.amazonaws.com/'>here</a> 
 ## Installation
 
 Clone the Github repository and use npm to install dependencies at the server folder <br/>
