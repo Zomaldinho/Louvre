@@ -32,6 +32,7 @@ const Login = () => {
     localStorage.setItem('token', res.token);
     localStorage.setItem('userId', res.userId);
     localStorage.setItem('role', res.role);
+    localStorage.setItem('username', res.username);
     if(res.role == 'Admin'){
       history.replace('/admin/arts')
     } else if (res.role == 'Guest'){
