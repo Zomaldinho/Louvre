@@ -17,3 +17,25 @@ export const signUpSuccessfulMessage = () => {
     timer: 2000
   })
 }
+
+export const deleteConfirmation = async() => {
+  return await Swal.fire({
+    title: 'Are you sure you want to delete this?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Yes, delete it!'
+  })
+}
+
+export const deletionSuccessfulMessage = () => {
+  return Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Item is successfully deleted',
+    showConfirmButton: false,
+    timer: 2000
+  })
+}
