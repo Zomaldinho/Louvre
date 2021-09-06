@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
@@ -8,11 +8,13 @@ import AdminArtsPage from './pages/AdminArtsPage';
 import AdminUsersPage from './pages/AdminUsersPage';
 import { useEffect, useState } from 'react';
 import { verify } from 'jsonwebtoken';
+import { AuthContext } from './store/auth-context';
 
 function App() {
   const [token, setToken] = useState(null);
   const [role, setRole] = useState('');
   const [loading, setLoading] = useState(true);
+  const history = useHistory()
   
   useEffect(() => {
     let token = localStorage.getItem('token');
@@ -25,10 +27,20 @@ function App() {
     setLoading(false);
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('role');
+    localStorage.removeItem('username');
+    setRole(null)
+    setToken('')
+    history.replace('/login')
+  }
+
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div>
+    <AuthContext.Provider value={{ handleLogout }}>
       <Switch>
         <Route path="/" exact>
           {token ? (
@@ -56,21 +68,17 @@ function App() {
             <GuestGallaryArtsPage />
           </Route>
         
-        {token && role == 'Admin' && (
           <Route path="/admin/arts">
             <AdminArtsPage />
           </Route>
-        )}
-        {token && role == 'Admin' && (
           <Route path="/admin/users">
             <AdminUsersPage />
           </Route>
-        )}
         <Route path="*">
           <Redirect to="/" />
         </Route>
       </Switch>
-    </div>
+    </AuthContext.Provider>
   );
 }
 
