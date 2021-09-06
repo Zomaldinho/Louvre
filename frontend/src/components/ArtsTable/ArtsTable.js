@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   deleteConfirmation,
   deletionSuccessfulMessage,
@@ -58,7 +59,14 @@ const ArtsTable = () => {
 
   return (
     <div>
-      <h2 className="mb-3 pt-3 text-start">Art pieces</h2>
+      <div className="d-flex justify-content-between">
+        <h2 className="mb-3 pt-3 text-start">Art pieces</h2>
+        <a>
+          <Link to="/admin/newArt" className="btn btn-primary m-2">
+            Add a new art
+          </Link>
+        </a>
+      </div>
       <div className="p-2 bg-white">
         <table className="table align-middle">
           <thead className="table-light">
