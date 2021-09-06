@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Paginator from '../Paginator/Paginator';
 
 const UsersTable = () => {
   const [users, setUsers] = useState([]);
@@ -21,6 +22,10 @@ const UsersTable = () => {
     res = await res.json();
     setUsers(res.users);
     setCount(res.count);
+  };
+
+  const handlePaginatorChange = async (newPage) => {
+    await updateUsers(newPage);
   };
 
   return (
@@ -47,6 +52,11 @@ const UsersTable = () => {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="d-flex justify-content-center m-3">
+        {!!users.length && (
+          <Paginator change={handlePaginatorChange} count={count} />
+        )}
       </div>
     </div>
   );
