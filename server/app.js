@@ -24,9 +24,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(
-    'mongodb+srv://root:MHlDw6ve2wSxk64w@cluster0.306uy.mongodb.net/Louvre?retryWrites=true&w=majority'
-  )
+  .connect(process.env.DB_URL)
   .then((result) => app.listen(5000))
   .then(() => console.log('app is running on port 5000'))
   .catch(console.log);
