@@ -3,6 +3,9 @@
 a mini online version of the Louvre museum in which guests can login and view ancient art pieces and know about their history and artists. Also, museum staff can manage art pieces and view system guests. <br/>
 This is a MERN app which uses React and Bootstrap for the front end and Node JS (Express) and MongoDB (Mongoose) for the backend
 
+## Live Version
+
+you can see a live version of the app deployed on an AWS EC2 Ubuntu instance by  clicking <a href='http://ec2-18-193-157-74.eu-central-1.compute.amazonaws.com/'>here</a> 
 ## Installation
 
 Clone the Github repository and use npm to install dependencies at the server folder <br/>
