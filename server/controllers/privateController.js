@@ -35,6 +35,7 @@ exports.createArt = async (req, res, next) => {
     if (!errors.isEmpty()) {
       validationHelper.handleValidationErrors(errors);
     }
+    validationHelper.checkImageFile(req);
     authHelper.checkUserIsAdmin(req.userRole);
     let { artist, description } = req.body;
     let { path } = req.file;
@@ -63,6 +64,7 @@ exports.editArt = async (req, res, next) => {
     if (!errors.isEmpty()) {
       validationHelper.handleValidationErrors(errors);
     }
+    validationHelper.checkImageFile(req);
     authHelper.checkUserIsAdmin(req.userRole);
     let { artist, description } = req.body;
     let { id } = req.params;

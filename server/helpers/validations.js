@@ -37,3 +37,11 @@ exports.handleValidationErrors = (errors) => {
   error.data = errors.array();
   throw error;
 };
+
+exports.checkImageFile = (req) => {
+  if(!req.file){
+    const error = new Error('Image file is required');
+    error.statusCode = 401;
+    throw error;
+  }
+}
