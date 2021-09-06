@@ -55,7 +55,9 @@ const ArtsTable = () => {
         </tbody>
       </table>
     </div>
-      {/* <Paginator /> */}
+    <div className='d-flex justify-content-center m-3'>
+      <Paginator count={count} change={handlePaginatorChange} />
+    </div>
     </div>
   )
 }
