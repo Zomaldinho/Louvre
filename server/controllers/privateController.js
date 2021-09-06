@@ -13,9 +13,12 @@ exports.getArts = async (req, res, next) => {
       .skip((currentPage - 1) * perPage)
       .limit(perPage);
 
+    let count = await Art.count()
+
     res.status(200).json({
       message: 'Fetched arts successfully.',
       arts,
+      count
     });
   } catch (error) {
     if (!error.statusCode) {
@@ -95,13 +98,17 @@ exports.getUsers = async (req, res, next) => {
   try {
     authHelper.checkUserIsAdmin(req.userRole);
     const currentPage = +req.query.page || 1;
-    const perPage = +req.query.elements || 10;
+    const perPage = +req.query.elements || 12;
+
     let users = await User.find()
       .skip((currentPage - 1) * perPage)
       .limit(perPage);
+    let count = await Art.count()
+
     res.status(200).json({
       message: 'Fetched users successfully.',
       users,
+      count
     });
   } catch (error) {
     if (!error.statusCode) {
