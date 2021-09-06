@@ -82,6 +82,7 @@ exports.login = async (req, res, next) => {
         token: token,
         userId: loadedUser._id.toString(),
         role: loadedUser.role,
+        username: loadedUser.username
       });
   } catch (error) {
     if (!error.statusCode) {
