@@ -7,16 +7,16 @@ const ArtCard = (props) => {
     <div>
       <div
         onClick={() => setIsClicked(true)}
-        class="card m-3 p-0"
+        className="card m-3 p-0"
         style={{ borderRadius: '25px' }}
       >
         <img
           src={baseURL + props.art.picture}
-          class="card-img-top"
+          className="card-img-top"
           alt="..."
         />
-        <div class="card-body">
-          <p class="text-start card-text" style={{ color: 'blue' }}>
+        <div className="card-body">
+          <p className="text-start card-text" style={{ color: 'blue' }}>
             {props.art.artist}
           </p>
         </div>
