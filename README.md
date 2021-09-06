@@ -16,6 +16,10 @@ After installation copy the env.sh file into server folder and run `$ source env
 Then open a new terminal window inside the **frontend** folder.
 Finally start the front end with `$ npm start` at port 3000 and wait until it opens a new tap in your browser.
 
+### Alternative way
+
+There is an alternative way to setup and start the project using docker by simply clone the repo and change terminal directory inside the main folder then run the following command `$ docker-compose up` but you have to change the backend links inside frontend code from http://localhost:5000 to `backend` to match the backend container name
+
 ## Usage
 First of all you have to create an account to get to the app. you can do so by navigating to sign up page and fill the form and submit it, then you'll be redirected to login page to login. <br/>
 Once you login as guest you can view all the art pieces created by admins and you can click on any piece to view more details about them.<br/>
