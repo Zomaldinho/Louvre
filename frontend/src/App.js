@@ -51,11 +51,11 @@ function App() {
             <Signup />
           </Route>
         )}
-        {token && role == 'Guest' && (
+         
           <Route path="/gallery">
             <GuestGallaryArtsPage />
           </Route>
-        )}
+        
         {token && role == 'Admin' && (
           <Route path="/admin/arts">
             <AdminArtsPage />
